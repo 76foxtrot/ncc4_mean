@@ -1,0 +1,52 @@
+<section class="matter">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="widget wgreen">
+                <div class="widget-head">
+                    <div class="pull-left" data-ng-bind="title"></div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="widget-content">
+                    <form method="post" name="frm" novalidate>
+                        <fieldset>
+                            <div class="form-group has-feedback" data-ng-class="{ 'has-error' : !frm.studentName.$pristine && frm.studentName.$invalid }">
+                                <label for="studentName">Student Name</label>
+                                <input type="text"
+                                       name="studentName"
+                                       id="studentName"
+                                       class="form-control"
+                                       required
+                                       data-ng-model="name"
+                                       placeholder="Full name">
+                <span class="glyphicon glyphicon-remove form-control-feedback"
+                      data-ng-show="!frm.studentName.$pristine && frm.studentName.$invalid"></span>
+                            </div>
+                            <div class="form-group has-feedback" data-ng-class="{ 'has-error' : !frm.email.$pristine && frm.email.$invalid }">
+                                <label for="email">Student Name</label>
+                                <input type="email"
+                                       name="email"
+                                       id="email"
+                                       class="form-control"
+                                       required
+                                       data-ng-model="email"
+                                       placeholder="address@host.com">
+                <span class="glyphicon glyphicon-remove form-control-feedback"
+                      data-ng-show="!frm.email.$pristine && frm.email.$invalid"></span>
+                            </div>
+                            <div>
+                                <button class="btn btn-info"
+                                        data-ng-disabled="frm.$pristine || frm.$invalid"
+                                        data-ng-click="save()">
+                                    <i class="fa fa-save"></i>Save
+                                </button>
+                                <button class="btn btn-info" data-ng-click="cancel()"><i class="fa fa-undo"></i>Cancel</button>
+                                <button class="btn btn-danger" data-ng-show="!isAdd" data-ng-click="delete()"><i class="fa fa-trash-o"></i>Delete</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

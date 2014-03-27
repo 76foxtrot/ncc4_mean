@@ -1,0 +1,146 @@
+<section class="matter">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="col-md-4">
+                <div class="widget wgreen">
+                    <div class="widget-head">
+                        <div class="pull-left" data-ng-bind="title"></div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="widget-content">
+                        <form method="post" name="frm" novalidate>
+                            <fieldset>
+                                <div class="form-group has-feedback" data-ng-class="{ 'has-error' : !frm.studentName.$pristine && frm.studentName.$invalid }">
+                                    <label for="studentName">Student Name</label>
+                                    <input type="text"
+                                           name="studentName"
+                                           id="studentName"
+                                           class="form-control"
+                                           required
+                                           data-ng-model="name"
+                                           placeholder="Full name">
+                <span class="glyphicon glyphicon-remove form-control-feedback"
+                      data-ng-show="!frm.studentName.$pristine && frm.studentName.$invalid"></span>
+                                </div>
+                                <div class="form-group has-feedback" data-ng-class="{ 'has-error' : !frm.email.$pristine && frm.email.$invalid }">
+                                    <label for="email">Student Name</label>
+                                    <input type="email"
+                                           name="email"
+                                           id="email"
+                                           class="form-control"
+                                           required
+                                           data-ng-model="email"
+                                           placeholder="address@host.com">
+                <span class="glyphicon glyphicon-remove form-control-feedback"
+                      data-ng-show="!frm.email.$pristine && frm.email.$invalid"></span>
+                                </div>
+                                <div>
+                                    <button class="btn btn-info"
+                                            data-ng-disabled="frm.$pristine || frm.$invalid"
+                                            data-ng-click="save()">
+                                        <i class="fa fa-save"></i>Save
+                                    </button>
+                                    <button class="btn btn-info" data-ng-click="cancel()"><i class="fa fa-undo"></i>Cancel</button>
+                                    <button class="btn btn-danger" data-ng-show="!isAdd" data-ng-click="delete()"><i class="fa fa-trash-o"></i>Delete</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5" data-ng-show="student.hours.length >= 1">
+                <div class="widget worange">
+                    <div class="widget-head">
+                        <div class="pull-left">Add Hours</div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="widget-content">
+                        <form method="post" name="frm" role="form" novalidate>
+                            <div class="form-group">
+                                <label for="studentSelect">Student</label>
+                                <select id="studentSelect"
+                                        class="form-control"
+                                        data-ng-show="hourModel.isAdd"
+                                        data-ng-options="student.name for student in students"
+                                        data-ng-model="hourModel.student">
+                                </select>
+                                <span data-ng-show="!hourModel.isAdd" data-ng-bind="hourModel.student"></span>
+                            </div>
+                            <div class="form-group">
+                                <p class="input-group">
+                                    <input type="text"
+                                           class="form-control"
+                                           datepicker-popup="shortDate"
+                                           ng-model="hourModel.date"
+                                           ng-required="true"
+                                           is-open="opened"
+                                           close-text="Close" />
+                  <span class="input-group-btn">
+                    <button class="btn btn-default btn-adjust" ng-click="open($event)"> <i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                                </p>
+                            </div>
+                            <div class="form-group has-feedback" data-ng-class="{ 'has-error' : frm.flightHours.$invalid }">
+                                <label for="flightHours">Flight</label>
+                                <input type="text"
+                                       name="flightHours"
+                                       id="flightHours"
+                                       class="form-control"
+                                       data-ng-pattern="/^([0-9]{0,2})(\.[0-9]{0,1})?$/"
+                                       data-ng-model="hourModel.flight"
+                                       placeholder="0 - 99.9">
+                <span class="glyphicon glyphicon-remove form-control-feedback"
+                      data-ng-show="!frm.flightHours.$pristine && frm.flightHours.$invalid"></span>
+                            </div>
+                            <div class="form-group has-feedback" data-ng-class="{ 'has-error' : frm.groundHours.$invalid }">
+                                <label for="groundHours">Ground</label>
+                                <input type="text"
+                                       name="groundHours"
+                                       id="groundHours"
+                                       class="form-control"
+                                       data-ng-pattern="/^([0-9]{0,2})(\.[0-9]{0,1})?$/"
+                                       data-ng-model="hourModel.ground"
+                                       placeholder="0 - 99.9">
+                <span class="glyphicon glyphicon-remove form-control-feedback"
+                      data-ng-show="!frm.groundHours.$pristine && frm.groundHours.$invalid"></span>
+                            </div>
+                            <div class="form-group has-feedback" data-ng-class="{ 'has-error' : frm.tailNumber.$invalid }">
+                                <label for="tailNumber">Tail Number</label>
+                                <input type="text"
+                                       name="tailNumber"
+                                       id="tailNumber"
+                                       class="form-control"
+                                       ng-model="hourModel.tailNumber"
+                                       data-ng-pattern="/^([Nn|Xx])(.{5})$/"
+                                       typeahead="tailNumber for tailNumber in planes | filter:$viewValue | limitTo:8">
+                <span class="glyphicon glyphicon-remove form-control-feedback"
+                      data-ng-show="!frm.tailNumber.$pristine && frm.tailNumber.$invalid"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="comments">Comments</label>
+                                <textarea id="comments"
+                                          class="form-control"
+                                          data-ng-model="hourModel.comments">
+                                </textarea>
+                            </div>
+                            <div>
+                                <button class="btn btn-info"
+                                        data-ng-disabled="frm.$invalid"
+                                        data-ng-click="save()">
+                                    <i class="fa fa-save"></i>
+                                    <span data-ng-show="hourModel.isAdd">Add</span>
+                                    <span data-ng-show="!hourModel.isAdd">Save</span>
+                                </button>
+                                <button class="btn btn-info" data-ng-click="cancel()"><i class="fa fa-undo"></i>Cancel</button>
+                                <button class="btn btn-danger" data-ng-show="showDelete" data-ng-click="delete()"><i class="fa fa-trash-o"></i>Delete</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </div>
+    </div>
+</section>
+

@@ -1,0 +1,55 @@
+<section class="matter">
+    <div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group col-md-12">
+                <input type="text"
+                       class="form-control"
+                       placeholder="Filter name, email, or hour"
+                       data-ng-model="filterText" />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="btn-group pull-right">
+                    <button class="btn btn-info"
+                            data-ng-click="addStudent()"
+                            >
+                        <span class="fa fa-plus"></span> <span>Add Student</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div data-ng-show="students.length == 0">
+            <h4><i>There are no students to list</i></h4>
+        </div>
+        <div class="row">
+            <div class="col-md-6" data-ng-show="students.length > 0">
+                <div class="widget wgreen">
+                    <div class="widget-head">
+                        <div class="page-title pull-left">Students
+                            (<small class="page-title-subtle" data-ng-bind="filtered.length"></small> of
+                            <small class="page-title-subtle" data-ng-bind="students.length"></small>)
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="widget-content user">
+                        <div class="padd hover"
+                             data-ng-repeat="s in filtered = (students | filter:search) | orderBy:predicate:reverse"
+                             data-ng-click="gotoStudent(s)">
+                            <div class="user" title="Go to student details">
+                                <span class="user-pic"><i class="fa fa-user fa-4x"></i></span>
+                                <div class="user-details">
+                                    <small>Flight: {{s.flight}}</small>
+                                    <small>Ground: {{s.ground}}</small>
+                                    <h6>{{s.name}}</h6>
+                                    <small>{{s.email}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+</section>

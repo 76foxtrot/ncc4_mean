@@ -6,7 +6,13 @@ angular.module('app').config(function($routeProvider, $locationProvider, Restang
     //$locationProvider.html5Mode(true);
     $routeProvider
         .when('/welcome', { templateUrl: 'app/main/welcome.html' })
-        .otherwise({ redirectTo: '/welcome'});
+        .when('/dashboard', { templateUrl: 'app/main/dashboard.html', controller: 'dashboardVm' })
+        .when('/students', { templateUrl: 'app/students/students.html', controller: 'studentsVm' })
+        .when('/students/add', { templateUrl: 'app/students/addstudent.html', controller: 'addStudentVm' })
+        .when('/student/:id', { templateUrl: 'app/students/student.html', controller: 'studentVm' })
+        .when('/hours', { templateUrl: 'app/hours/hours.html', controller: 'hoursVm' })
+        .when('/hours/add/:id', { templateUrl: 'app/hours/addhours.html', controller: 'addHoursVm' })
+        .otherwise({ redirectTo: '/dashboard'});
 });
 angular.module('app')
     .run(function($route, $location, $rootScope) {
