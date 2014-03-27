@@ -1,0 +1,36 @@
+<div class="nav navbar-nav navbar-right" data-ng-controller="navUserVm">
+    <form class="navbar-form" name="authFrm" data-ng-hide="identity.isAuthenticated()">
+        <div class="form-group has-feedback has-error">
+            <input name="email"
+                   type="text"
+                   class="form-control"
+                   placeholder="Email"
+                   data-ng-model="username" />
+            <span class="glyphicon glyphicon-remove form-control-feedback" data-ng-show="authFrm.email.$error.email"></span>
+        </div>
+        <div class="form-group has-feedback">
+            <input name="pwd"
+                   class="form-control"
+                   type="password"
+                   placeholder="Password"
+                   required
+                   data-ng-model="password"/>
+            <span class="glyphicon glyphicon-remove form-control-feedback"
+                  data-ng-show="!authFrm.pwd.$pristine && authFrm.pwd.$error.required"></span>
+        </div>
+        <button data-ng-disabled="!authFrm.$valid || authFrm.$pristine" data-ng-click="signin()" class="btn btn-primary">Sign In</button>
+    </form>
+
+    <ul class="nav navbar-nav navbar-right" data-ng-show="identity.isAuthenticated()">
+        <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                {{identity.currentUser.username}} <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="#"><i class="icon-user"></i> Profile</a></li>
+                <li><a href="#"><i class="icon-cogs"></i> Settings</a></li>
+                <li><a data-ng-click="signout()" href="#"><i class="icon-off"></i> Logout</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>

@@ -33,5 +33,6 @@ module.exports = function(config) {
             //model();
         }
     });
+    require('./users').createDefaultUsers();
 };
 

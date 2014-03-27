@@ -6,6 +6,7 @@ var config = require('./server/config/config')[env];
 
 require('./server/config/express')(app, config);
 require('./server/models')(config);
+require('./server/config/passport')();
 require('./server/routes')(app);
 
 app.listen(config.appPort);

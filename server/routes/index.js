@@ -2,6 +2,7 @@ var fs = require('fs');
 var path = require('path');
 
 module.exports = function (app){
+    //var routeDir = 'routes';
     var routeDir = __dirname;
     var files = fs.readdirSync(routeDir);
     files.forEach(function (file) {
@@ -21,7 +22,6 @@ module.exports = function (app){
     app.get('/', function(req, res) {
         res.render('index.html');
     });
-
     app.get('/deck', function(req, res) {
         res.render('../../public/deck/ncc4.html');
     });
