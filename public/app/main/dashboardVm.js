@@ -1,15 +1,67 @@
-angular.module('app').controller('dashboardVm', ['$scope', dashboardVm]);
-function dashboardVm($scope) {
+angular.module('app').controller('dashboardVm', ['$scope', 'lodash', 'moment', 'dataService', dashboardVm]);
+function dashboardVm($scope, _, moment, ds) {
+    var dt = new Date();
+    var mt = function() {
+        return {
+            date: dt,
+            student: undefined,
+            flight: undefined,
+            ground: undefined,
+            comments: undefined,
+            tailNumber: undefined,
+            isAdd: true
+        }
+    };
     $scope.predicate = 'date';
     $scope.reverse = true;
+    $scope.currentHours = [];
+    $scope.numberOfStudents = 0;
+    $scope.myHours = 325;
+    $scope.students = [];
+    $scope.planes = [];
+    $scope.addHours = mt();
 
     $scope.save = function() {
-        console.log('save');
+        var newHours = $scope.addHours;
+        ds.addHours(newHours)
+            .then(function() {
+                $scope.addHours = mt();
+                updateScope();
+            });
     };
     $scope.cancel = function() {
-        console.log('cancel');
+        $scope.addHours = mt();
     };
 
+    function updateScope() {
+    ds.getStudents()
+        .then(function(data) {
+            $scope.numberOfStudents = data.students.length;
+            var month = moment().format("MMMM YYYY");
+            var students = _.map(data.students, function(student) {
+                return {
+                    id: student.id,
+                    name: student.name
+                };
+            });
+            $scope.students = students;
+            $scope.planes = ds.planes();
+            var hours = ds.currentHoursList();
+            var tot = { f: 0, g: 0 };
+            _.forEach(hours, function(hr) {
+                tot.f += hr.flight;
+                tot.g += hr.ground;
+            });
+            $scope.currentHours = {
+                month: month,
+                flight: tot.f,
+                ground: tot.g,
+                hours: hours
+            };
+        });
+    };
+    updateScope();
+    /*
      $scope.currentHours = {
      month: 'March',
      flight: 10,
@@ -46,4 +98,5 @@ function dashboardVm($scope) {
      { id: 667, name: 'test6' }
      ];
      $scope.planes = ['N11111', 'N22222', 'N33333'];
+     */
 };

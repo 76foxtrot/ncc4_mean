@@ -6,9 +6,7 @@
                     <div class="pull-left"><i class="fa fa-calendar-o"></i></div>
                     <div class="datas-text pull-right">
                         <span class="bold" data-ng-bind="currentHours.month"></span>
-                        <small class="small pull-left">Flight: <small data-ng-bind="currentHours.flight"></small></small>
-                        <small class="small pull-right" style="padding-left: 1.8em;">Ground: <smalll data-ng-bind="currentHours.ground"></smalll></small>
-                    </div>
+                        <small class="small pull-left">Flight: <small data-ng-bind="currentHours.flight | number: 1"></small></small> <small class="small pull-right" style="padding-left: 1.8em;">Ground: <smalll data-ng-bind="currentHours.ground | number: 1"></smalll></small> </div>
                     <div class="clearfix"></div></a>
                 </li>
                 <li class="blightblue"><a href="#/students">

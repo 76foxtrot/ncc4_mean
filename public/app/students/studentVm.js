@@ -1,29 +1,36 @@
-angular.module('app').controller('studentVm', ['$scope', '$window', '$routeParams', studentVm]);
+angular.module('app')
+    .controller('studentVm',
+               ['$scope',
+                '$window',
+                '$routeParams',
+                'logger',
+                'dataService',
+                studentVm]);
 
-function studentVm ($scope, $window, $routeParams) {
+function studentVm ($scope, $window, $routeParams, logger, data) {
     $scope.student = {};
-    $scope.student = {
-        hours:
-        [
-            {date: '03/01/2014', name: 'first last 1', tailNumber: 'N12345', flight: 1.2, ground: 1.0 },
-            {date: '03/01/2014', name: 'first last 2', tailNumber: 'N12345', flight: 1.2, ground: 1.0 },
-            {date: '03/01/2014', name: 'first last', tailNumber: 'N12345', flight: 1.2, ground: 1.0 }
-        ],
-        name: 'test1',
-        email: 'abc@abc.net'
-    };
+    data.getStudent($routeParams.id)
+        .then(function(student) {
+            $scope.student = student;
+        });
 
     $scope.save = function(){
-        console.log('save');
-        $window.history.back();
+        data.updateStudent({ id: $routeParams.id, name: $scope.student.name, email: $scope.student.email })
+            .then(function() {
+                logger.info('Student updated.');
+                $window.history.back();
+            });
     };
 
     $scope.remove = function(){
-        console.log('remove');
-        $window.history.back();
+        data.removeStudent($routeParams.id)
+            .then(function() {
+                logger.info('Student removed.');
+                $window.history.back();
+            });
     };
 
     $scope.cancel = function(){
-        $window.histor.back();
+        $window.history.back();
     };
 };

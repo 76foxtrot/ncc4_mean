@@ -13,6 +13,7 @@ angular.module('app').config(function($routeProvider, $locationProvider, Restang
         .when('/hours', { templateUrl: 'app/hours/hours.html', controller: 'hoursVm' })
         .when('/hours/add/:id', { templateUrl: 'app/hours/addhours.html', controller: 'addHoursVm' })
         .otherwise({ redirectTo: '/dashboard'});
+    RestangularProvider.setBaseUrl('/api');
 });
 angular.module('app')
     .run(function($route, $location, $rootScope) {
